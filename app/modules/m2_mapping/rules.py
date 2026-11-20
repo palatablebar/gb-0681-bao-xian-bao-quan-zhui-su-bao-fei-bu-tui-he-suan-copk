@@ -1,7 +1,7 @@
 from copy import deepcopy
-from app.config import REQUIRED,NUMERIC,DATES,TIMES
+from app.config import REQUIRED,NUMERIC,DATES,TIMES,MONTHS
 from app.errors import DomainError
-from app.modules.m2_mapping.coerce import number,day,instant,SENTINELS
+from app.modules.m2_mapping.coerce import number,day,instant,month,SENTINELS
 
 def normalize(state):
     state=deepcopy(state);good=[];groups={}
@@ -14,6 +14,10 @@ def normalize(state):
                 if field in item and item[field] != '':item[field]=number(item[field])
             for field in DATES:
                 if field in item and item[field] != '':item[field]=day(item[field])
+            for field in MONTHS:
+                if field in item:
+                    if str(item[field]).strip().upper() in SENTINELS:item.pop(field)
+                    else:item[field]=month(item[field])
             for field in TIMES:
                 if field in item and item[field] != '':item[field]=instant(item[field])
             key=(item['id'],str(item.get('version','1')))

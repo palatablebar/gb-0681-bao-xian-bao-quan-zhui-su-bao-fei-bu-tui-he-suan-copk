@@ -17,6 +17,14 @@ def day(value):
     try:return date.fromisoformat(value.strip()).isoformat()
     except (ValueError,AttributeError):raise DomainError('DATE','日期无效')
 
+def month(value):
+    text=unicodedata.normalize('NFKC',str(value)).strip()
+    try:
+        year,mon=text.split('-')
+        if len(year)!=4 or len(mon)!=2:raise ValueError
+        return date(int(year),int(mon),1).isoformat()[:7]
+    except (ValueError,AttributeError):raise DomainError('DATE','月份无效')
+
 def instant(value):
     try:
         d=datetime.fromisoformat(value.replace('Z','+00:00'))

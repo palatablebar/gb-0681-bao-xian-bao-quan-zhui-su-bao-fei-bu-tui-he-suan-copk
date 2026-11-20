@@ -11,7 +11,7 @@
 | M3 保全选版 | 查看并复算保全选版 | `/api/m3_versions` | `app/modules/m3_versions/rules.py` | `tests/test_versions.py` |
 | M4 承保切片 | 查看并复算承保切片 | `/api/m4_segments` | `app/modules/m4_segments/rules.py` | `tests/test_segments.py` |
 | M5 保费重算 | 查看并复算保费重算 | `/api/m5_calculate` | `app/modules/m5_calculate/rules.py` | `tests/test_calculate.py` |
-| M6 补退对账 | 查看并复算补退对账 | `/api/m6_reconcile` | `app/modules/m6_reconcile/compare.py` | `tests/test_reconcile.py` |
+| M6 补退对账 | 查看并复算补退对账 | `/api/m6_reconcile` | `app/modules/m6_reconcile/compare.py`、`app/modules/m6_reconcile/invoice.py` | `tests/test_reconcile.py`、`tests/test_invoice.py` |
 | M7 结案归档 | 查看并复算结案归档 | `/api/m7_archive` | `app/modules/m7_archive/export_out.py` | `tests/test_archive.py` |
 
 ## 陷阱登记
@@ -31,6 +31,9 @@
 | TRAP-26 | 旧版本复核 | 覆盖新结论 | 事务条件更新 | `app/store.py` | `tests/test_archive.py::test_stale_review` |
 | TRAP-23 | 生效日端点 | 双计生效日 | 半开区间 | `app/modules/m4_segments/rules.py` | `tests/test_segments.py::test_halfopen_conservation` |
 | TRAP-24 | 分币尾差 | 段合计不等 | 最大余额法 | `app/modules/m5_calculate/rules.py` | `tests/test_calculate.py::test_largest_remainder_conserves` |
+| TRAP-27 | 跨月合并出票 | 本月一张票 | 按原开票月份分票 | `app/modules/m6_reconcile/invoice.py` | `tests/test_invoice.py::test_cross_month_split` |
+| TRAP-28 | 重跑增票 | 每次插入新票 | 内容相同不新增版本 | `app/store.py` | `tests/test_invoice.py::test_rerun_adds_no_invoice` |
+| TRAP-29 | 覆盖旧版 | UPDATE旧版本 | 追加版本+指针原子拨动 | `app/store.py` | `tests/test_invoice.py::test_interrupted_keeps_previous` |
 
 ## 对账规则
 

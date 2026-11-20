@@ -5,4 +5,5 @@ MODULES=[('m1_ingest', '保单采信'), ('m2_mapping', '责任映射'), ('m3_ver
 REQUIRED=['id', 'policy_id', 'version', 'kind', 'effective', 'start', 'end', 'annual_premium', 'paid', 'cover']
 NUMERIC=['version', 'annual_premium', 'paid']
 DATES=['effective', 'start', 'end']
+MONTHS=['paid_month']
 TIMES=[]
